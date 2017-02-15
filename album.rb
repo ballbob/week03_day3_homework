@@ -1,11 +1,13 @@
 require_relative('./sql_runner')
 
 class Album
-  attr_reader :id, :title, :genre, :artist_id
+  attr_reader :id 
+  attr_accessor :title, :genre, :artist_id
   def initialize(options)
     @title = options['title']
     @genre = options['genre']
     @artist_id = options['artist_id'].to_i
+    @id = options['id'].to_i 
   end
 
   def save()
@@ -15,12 +17,13 @@ class Album
     (
     '#{@title}',
     '#{@genre}',
-    '#{@artist_id}') 
+    #{@artist_id}) 
     RETURNING *;
     "
     savedalbums = SqlRunner.run(sql)
-    album_object = savedalbums.map {|album| Album.new(album)}
-    id_string = album_object[0].id
+    album_objects = savedalbums.map {|album| Album.new(album)}
+    puts album_objects
+    id_string = album_objects[0].id
     @id = id_string.to_i
   end
 
@@ -39,11 +42,13 @@ class Album
   end
 
   def update
-    sql = "UPDATE albums SET (title,genre,artist_id) = (
-    '#{@title}',
-    '#{@genre}',
-    '#{@artist_id}') WHERE id = #{@id};
-    "
+    sql = "UPDATE albums 
+          SET title = '#{@title}',
+          genre = '#{@genre}',
+          artist_id = #{@artist_id}
+          WHERE id = #{@id};"
+    SqlRunner.run(sql)
+  end
 
 
 end
