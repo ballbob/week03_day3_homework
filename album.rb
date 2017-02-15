@@ -24,4 +24,13 @@ class Album
     @id = id_string.to_i
   end
 
+  def self.list_all
+    sql = "SELECT * FROM albums;"
+    list_hash = SqlRunner.run(sql)
+   list_object = list_hash.map { |album| Album.new(album)}
+   return list_object
+  end
+
+
+
 end

@@ -26,5 +26,12 @@ class Artist
     return list_object
   end
 
+  def list_by_artist_id
+
+    sql = "SELECT * FROM albums WHERE artist_id = #{@id};"
+    by_artist_hash = SqlRunner.run(sql)
+    by_artist_object = by_artist_hash.map { |album| Album.new(album)}
+    return by_artist_object
+  end
 
 end
