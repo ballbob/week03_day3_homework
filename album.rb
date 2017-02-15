@@ -31,6 +31,19 @@ class Album
    return list_object
   end
 
+  def list_by_album_id
+    sql = "SELECT * FROM artists WHERE id = #{@artist_id};"
+    by_album_hash = SqlRunner.run(sql)
+    by_album_object = by_album_hash.map {|artist| Artist.new(artist)}
+    return by_album_object
+  end
+
+  def update
+    sql = "UPDATE albums SET (title,genre,artist_id) = (
+    '#{@title}',
+    '#{@genre}',
+    '#{@artist_id}') WHERE id = #{@id};
+    "
 
 
 end
