@@ -1,0 +1,16 @@
+music collection app plan 
+
+-artist class
+-album class
+
+artist
+nsmr
+
+album
+name
+genre
+id
+
+create + save artists
+
+create + save albums 
