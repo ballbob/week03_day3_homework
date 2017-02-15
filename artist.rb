@@ -44,4 +44,11 @@ class Artist
     SqlRunner.run(sql)
   end
 
+  def self.artist_by_id(id)
+    sql = "SELECT * FROM artists where id = #{id}"
+    artisthash = SqlRunner.run(sql)
+    artistobject = artisthash.map {|artist| Artist.new(artist)}
+    return artistobject
+  end
+
 end
